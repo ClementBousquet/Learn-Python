@@ -43,10 +43,20 @@ class App(QtWidgets.QWidget):
         self.button_invert.clicked.connect(self.inverser_devise)
 
     def compute(self):
-        print("Compute")
+        montant = self.spin_montant.value()
+        deviseFrom = self.combo_devisesFrom.currentText()
+        deviseTo = self.combo_devisesTo.currentText()
+        res = self.c.convert(montant, deviseFrom, deviseTo)
+        self.spin_montantConv.setValue(res)
     
     def inverser_devise(self):
-        print("Inverser devise")
+        deviseFrom = self.combo_devisesFrom.currentText()
+        deviseTo = self.combo_devisesTo.currentText()
+
+        self.combo_devisesFrom.setCurrentText(deviseTo)
+        self.combo_devisesTo.setCurrentText(deviseFrom)
+
+        self.compute()
 
 app = QtWidgets.QApplication([])
 win = App()
