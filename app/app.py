@@ -8,6 +8,7 @@ class App(QtWidgets.QWidget):
         self.setWindowTitle("Convertisseur de devises")
         self.setup_ui()
         self.set_default_values()
+        self.setup_css()
         self.setup_connections()
 
     def setup_ui(self):
@@ -43,6 +44,14 @@ class App(QtWidgets.QWidget):
         self.button_invert.clicked.connect(self.inverser_devise)
 
 
+    def setup_css(self):
+        self.setStyleSheet("""
+        background-color: rgb(30, 30 ,30);
+        color: rgb(240, 240, 240);
+        border: none;
+        """)
+
+
     def compute(self):
         montant = self.spin_montant.value()
         deviseFrom = self.combo_devisesFrom.currentText()
@@ -53,7 +62,7 @@ class App(QtWidgets.QWidget):
             print("La conversion a échoué.")
         else:
             self.spin_montantConv.setValue(res)
-    
+
 
     def inverser_devise(self):
         deviseFrom = self.combo_devisesFrom.currentText()
