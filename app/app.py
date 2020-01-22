@@ -42,13 +42,19 @@ class App(QtWidgets.QWidget):
         self.spin_montant.valueChanged.connect(self.compute)
         self.button_invert.clicked.connect(self.inverser_devise)
 
+
     def compute(self):
         montant = self.spin_montant.value()
         deviseFrom = self.combo_devisesFrom.currentText()
         deviseTo = self.combo_devisesTo.currentText()
-        res = self.c.convert(montant, deviseFrom, deviseTo)
-        self.spin_montantConv.setValue(res)
+        try:
+            res = self.c.convert(montant, deviseFrom, deviseTo)
+        except currency_converter.currency_converter.RateNotFoundError:
+            print("La conversion a échoué.")
+        else:
+            self.spin_montantConv.setValue(res)
     
+
     def inverser_devise(self):
         deviseFrom = self.combo_devisesFrom.currentText()
         deviseTo = self.combo_devisesTo.currentText()
@@ -57,6 +63,7 @@ class App(QtWidgets.QWidget):
         self.combo_devisesTo.setCurrentText(deviseFrom)
 
         self.compute()
+
 
 app = QtWidgets.QApplication([])
 win = App()
