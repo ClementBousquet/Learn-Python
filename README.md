@@ -1,2 +1,2 @@
 # Money Converter
-#formation-developpeur-python
+ Simple project using PySide
